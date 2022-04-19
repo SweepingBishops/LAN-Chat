@@ -4,7 +4,7 @@ import threading
 
 ###GLOBAL CONSTANTS###
 HEADER = 8
-PORT = 5050
+PORT = 5555
 SERVER = "192.168.1.5"
 ADDRESS = (SERVER, PORT)
 FORMAT = "utf-8"
@@ -45,6 +45,7 @@ def handle_client(connection):
 
     connected = True
     while connected:
+        breakpoint()
         msg = receive(connection)
 
         if msg == DISCONNECT_MESSAGE:
