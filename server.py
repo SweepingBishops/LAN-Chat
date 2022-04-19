@@ -4,7 +4,7 @@ import threading
 
 ###GLOBAL CONSTANTS###
 HEADER = 8
-PORT = 5555
+PORT = 55555
 SERVER = "192.168.1.5"
 ADDRESS = (SERVER, PORT)
 FORMAT = "utf-8"
