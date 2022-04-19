@@ -8,7 +8,7 @@ PORT = 5050
 SERVER = "192.168.1.5"
 ADDRESS = (SERVER, PORT)
 FORMAT = "utf-8"
-DISCONNECT_MESSAGE = "!disconnect"
+DISCONNECT_MESSAGE = "!exit"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDRESS)
@@ -38,6 +38,7 @@ def handle_client(connection):
     clients.append(connection)
     name = receive(connection)
     print(f"{name} has connected.")
+    send(connection, 'Successfully connected to server! Type \'!exit\' to disconnect.')
     for client in clients:
         if client != connection:
             send(client, f"[{name} has connected.]")

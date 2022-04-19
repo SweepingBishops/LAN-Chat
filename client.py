@@ -6,7 +6,7 @@ import os
 HEADER = 8
 PORT = 5050
 FORMAT = "utf-8"
-DISCONNECT_MESSAGE = "!disconnect"
+DISCONNECT_MESSAGE = "!exit"
 SERVER = "192.168.1.5"
 ADDR = (SERVER, PORT)
 name = "roshan"
