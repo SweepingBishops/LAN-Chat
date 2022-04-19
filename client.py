@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import socket
 import threading
+import os
 
 HEADER = 8
 PORT = 5050
@@ -28,6 +29,11 @@ def receive(connection):
         msg_length = int(msg_length)
         msg = connection.recv(msg_length).decode(FORMAT)
         print(msg)
+        try:
+            senderName, receivedMessage = msg.split('>')
+            os.system(f'''notify-send """Local Chat:{senderName}""" """{receivedMessage} """''')
+        except ValueError:
+            os.system(f'''notify-send """Local Chat""" """ {msg} """''')
 
 
 def write(connection):
