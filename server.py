@@ -45,10 +45,9 @@ def handle_client(connection):
 
     connected = True
     while connected:
-        breakpoint()
         msg = receive(connection)
 
-        if msg == DISCONNECT_MESSAGE:
+        if msg == DISCONNECT_MESSAGE or msg is None:
             for client in clients:
                 if client != connection:
                     send(client, f"[{name} has disconnected.]")
@@ -62,7 +61,6 @@ def handle_client(connection):
         for client in clients:
             if client != connection:
                 send(client, f"{name}> {msg}")
-        continue
 
 
 def start_server():
