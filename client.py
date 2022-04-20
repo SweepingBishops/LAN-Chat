@@ -7,7 +7,7 @@ HEADER = 8
 FORMAT = "utf-8"
 DISCONNECT_MESSAGE = "!exit"
 SERVER = "192.168.1.8"
-PORT = 55555
+PORT = 5050
 ADDR = (SERVER, PORT)
 name = "roshan"
 
