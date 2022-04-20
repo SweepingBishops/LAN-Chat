@@ -7,11 +7,10 @@ from os import system
 ###GLOBAL CONSTANTS###
 SYSTEM = platform
 HEADER = 8
-# ip a|grep 'state UP' -A2|tail -n1|awk '{print $2}'|cut -f1 -d'/'
 if SYSTEM == "linux":
     SERVER = str(system("ip a|grep 'state UP' -A2|tail -n1|awk '{print $2}'|cut -f1 -d'/'"))
-elif SYSTEM == "osx":
-    SERVER = str(system("ifconfig | grep 'inet ' | grep -Fv 127.0.0.1 | awk '{print $2}'"))  # To be tested.
+elif SYSTEM == "darwin":
+    SERVER = str(system("ifconfig | grep 'inet ' | grep -Fv 127.0.0.1 | awk '{print $2}' | grep 192.168"))
 PORT = 55555
 ADDRESS = (SERVER, PORT)
 FORMAT = "utf-8"

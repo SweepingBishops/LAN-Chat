@@ -23,9 +23,6 @@ def send(connection, msg):
 
 def receive(connection):
     while (msg_length:= connection.recv(HEADER).decode(FORMAT)):
-        #msg_length = connection.recv(HEADER).decode(FORMAT)
-        #if not msg_length:
-        #    return
         msg_length = int(msg_length)
         msg = connection.recv(msg_length).decode(FORMAT)
         print(msg)
