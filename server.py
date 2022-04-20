@@ -1,17 +1,29 @@
 #!/usr/bin/env python
 import socket
 import threading
+from sys import platform
+from os import system
 
 ###GLOBAL CONSTANTS###
+SYSTEM = platform
 HEADER = 8
+# SERVER = "192.168.1.8"
+# ip a|grep 'state UP' -A2|tail -n1|awk '{print $2}'|cut -f1 -d'/'
+if SYSTEM == "linux":
+    SERVER = str(system("ip a|grep 'state UP' -A2|tail -n1|awk '{print $2}'|cut -f1 -d'/'"))
+elif SYSTEM == "osx":
+    SERVER = str(system("ifconfig | grep 'inet ' | grep -Fv 127.0.0.1 | awk '{print $2}'"))  # To be tested.
 PORT = 5050
-SERVER = "192.168.1.5"
 ADDRESS = (SERVER, PORT)
 FORMAT = "utf-8"
 DISCONNECT_MESSAGE = "!exit"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(ADDRESS)
+try:
+    server.bind(ADDRESS)
+except OSError as e:
+    print(e)
+    quit()
 
 clients = []
 
