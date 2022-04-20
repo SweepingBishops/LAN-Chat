@@ -7,13 +7,12 @@ from os import system
 ###GLOBAL CONSTANTS###
 SYSTEM = platform
 HEADER = 8
-PORT = 55555
-# SERVER = "192.168.1.8"
 # ip a|grep 'state UP' -A2|tail -n1|awk '{print $2}'|cut -f1 -d'/'
 if SYSTEM == "linux":
     SERVER = str(system("ip a|grep 'state UP' -A2|tail -n1|awk '{print $2}'|cut -f1 -d'/'"))
 elif SYSTEM == "osx":
     SERVER = str(system("ifconfig | grep 'inet ' | grep -Fv 127.0.0.1 | awk '{print $2}'"))  # To be tested.
+PORT = 55555
 ADDRESS = (SERVER, PORT)
 FORMAT = "utf-8"
 DISCONNECT_MESSAGE = "!exit"
@@ -49,8 +48,11 @@ def receive(connection):
 def handle_client(connection):
     clients.append(connection)
     name = receive(connection)
-    print(f"{name} has connected.")
-    send(connection, 'Successfully connected to server! Type \'!exit\' to disconnect.')
+    if '"' in name or "'" in name:
+        send(connection, "Names cannot contain quotes.")
+        connection.close()
+        return
+    send(connection, "Successfully connected to server! Type '!exit' to disconnect.")
     for client in clients:
         if client != connection:
             send(client, f"[{name} has connected.]")
@@ -64,12 +66,10 @@ def handle_client(connection):
                 if client != connection:
                     send(client, f"[{name} has disconnected.]")
             connection.close()
-            print(f"{name} has disconnected.")
             clients.remove(connection)
             connected = False
             break
 
-        print(f"{name}> {msg}")
         for client in clients:
             if client != connection:
                 send(client, f"{name}> {msg}")

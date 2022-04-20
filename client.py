@@ -4,10 +4,10 @@ import threading
 import os
 
 HEADER = 8
-PORT = 55555
 FORMAT = "utf-8"
 DISCONNECT_MESSAGE = "!exit"
 SERVER = "192.168.1.8"
+PORT = 55555
 ADDR = (SERVER, PORT)
 name = "roshan"
 
@@ -22,10 +22,10 @@ def send(connection, msg):
 
 
 def receive(connection):
-    while True:
-        msg_length = connection.recv(HEADER).decode(FORMAT)
-        if not msg_length:
-            return
+    while (msg_length:= connection.recv(HEADER).decode(FORMAT)):
+        #msg_length = connection.recv(HEADER).decode(FORMAT)
+        #if not msg_length:
+        #    return
         msg_length = int(msg_length)
         msg = connection.recv(msg_length).decode(FORMAT)
         print(msg)
